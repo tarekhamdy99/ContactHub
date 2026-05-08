@@ -53,6 +53,7 @@ function addContact() {
     isEmergency: emergencyCheckBox.checked,
   };
 
+  //? Apply All Validation Functions
   if (!requireInputsValidation()) {
     return;
   }
@@ -83,6 +84,7 @@ function addContact() {
 
 //^ Display All Contacts Function
 function displayAllContacts(contactSelected, search = "") {
+  //? In Empty List Case
   if (contactSelected.length === 0) {
     clearAllBtn.classList.add("d-none");
     contacts.innerHTML = `
@@ -104,6 +106,8 @@ function displayAllContacts(contactSelected, search = "") {
       `;
     return;
   }
+
+  //? In Data Existed In The List Case
 
   clearAllBtn.classList.remove("d-none");
 
@@ -727,6 +731,23 @@ function confirmFunction(
   });
 }
 
+//^ Keyboard Shortcuts (Enter to Save, Esc to Close)
+document.addEventListener("keydown", function (event) {
+  if (customModal.classList.contains("d-block")) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (!addBtn.classList.contains("d-none")) {
+        addContact();
+      } else if (!updateBtn.classList.contains("d-none")) {
+        updateContact();
+      }
+    }
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  }
+});
+
 //& End Helpful Function
 
 //~ Validation Function
@@ -906,22 +927,5 @@ function clearValidationOnEmpty(input, errorElement) {
 clearValidationOnEmpty(fullNameInput, fullNameError);
 clearValidationOnEmpty(phoneNumberInput, phoneNumberError);
 clearValidationOnEmpty(emailAddressInput, emailError);
-
-//^ Keyboard Shortcuts (Enter to Save, Esc to Close)
-document.addEventListener("keydown", function (event) {
-  if (customModal.classList.contains("d-block")) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      if (!addBtn.classList.contains("d-none")) {
-        addContact();
-      } else if (!updateBtn.classList.contains("d-none")) {
-        updateContact();
-      }
-    }
-    if (event.key === "Escape") {
-      closeModal();
-    }
-  }
-});
 
 //& End Validation Function
