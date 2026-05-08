@@ -907,4 +907,21 @@ clearValidationOnEmpty(fullNameInput, fullNameError);
 clearValidationOnEmpty(phoneNumberInput, phoneNumberError);
 clearValidationOnEmpty(emailAddressInput, emailError);
 
+//^ Keyboard Shortcuts (Enter to Save, Esc to Close)
+document.addEventListener("keydown", function (event) {
+  if (customModal.classList.contains("d-block")) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (!addBtn.classList.contains("d-none")) {
+        addContact();
+      } else if (!updateBtn.classList.contains("d-none")) {
+        updateContact();
+      }
+    }
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  }
+});
+
 //& End Validation Function
