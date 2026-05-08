@@ -22,7 +22,7 @@
     <nav
       class="py-3 bg-white position-fixed top-0 start-0 end-0 z-3 bg-opacity-75"
     >
-      <div class="container px-5">
+      <div class="container-fluid container-lg px-lg-5">
         <div class="d-flex justify-content-between align-items-center">
           <div class="left d-flex justify-content-start align-items-center">
             <div class="icon px-1">
@@ -31,12 +31,14 @@
               ></i>
             </div>
             <div class="title px-2">
-              <h1 class="fs-4 fw-bold m-0">Contact<span>Hub</span></h1>
+              <h1 class="fs-sm-5 fs-lg-4 fw-bold m-0">
+                Contact<span>Hub</span>
+              </h1>
               <p class="text-secondary m-0">Smart Contact Manager</p>
             </div>
           </div>
           <div class="right d-flex justify-content-start align-items-center">
-            <div class="px-2">
+            <div class="px-sm-1 px-lg-2">
               <button
                 onclick="showModal()"
                 id="addContactBtn"
@@ -45,10 +47,10 @@
                 <i class="fas fa-plus me-1 opacity-75 small"></i> Add Contact
               </button>
             </div>
-            <div class="px-2">
+            <div class="px-sm-1 px-lg-2 ghostIcon">
               <i class="fas fa-bell text-secondary rounded-3 icon"></i>
             </div>
-            <div class="px-3">
+            <div class="px-sm-1 px-lg-3 ghostIcon">
               <i class="fas fa-cog text-secondary rounded-3 icon"></i>
             </div>
             <div class="image">
@@ -71,7 +73,7 @@
 
         <div class="statistics w-100">
           <div class="row">
-            <div class="values total-num col-4 px-2">
+            <div class="values total-num col-sm-6 col-md-4 px-2 mb-2">
               <div
                 class="inner bg-white rounded-4 border border-1 d-flex justify-content-start align-items-center ps-4"
               >
@@ -91,7 +93,7 @@
                 </div>
               </div>
             </div>
-            <div class="values favorite-num col-4 px-2">
+            <div class="values favorite-num col-sm-6 col-md-4 px-2 mb-2">
               <div
                 class="inner bg-white rounded-4 border border-1 d-flex justify-content-start align-items-center ps-4"
               >
@@ -118,7 +120,7 @@
                 </div>
               </div>
             </div>
-            <div class="values emergency-num col-4 pe-0">
+            <div class="values emergency-num col-sm-6 col-md-4">
               <div
                 class="inner bg-white rounded-4 border border-1 d-flex justify-content-start align-items-center ps-4"
               >
@@ -154,7 +156,7 @@
 
         <div class="contacts w-100 mt-5">
           <div class="row">
-            <div class="left col-8 pb-4">
+            <div class="left col-sm-12 col-md-8 pb-4">
               <div class="title">
                 <h2 class="fw-bold fs-3 mb-1">All Contacts</h2>
                 <p class="text-secondary small mt-1">
@@ -195,14 +197,14 @@
                 <div class="cards">
                   <div
                     id="contacts"
-                    class="row row-cols-1 row-cols-md-2 g-4"
+                    class="row row-cols-1 row-cols-lg-2 g-4"
                   ></div>
                 </div>
               </div>
             </div>
-            <div class="right p-0 ps-4 col-4">
+            <div class="right col-sm-12 col-md-4 ps-sm-0 p-0">
               <div
-                class="d-flex flex-column justify-content-center align-items-center w-100 ps-5"
+                class="d-flex flex-column justify-content-center align-items-center w-100 ps-sm-0 ps-lg-5"
               >
                 <div
                   class="card favorite w-100 bg-white rounded-4 overflow-hidden mb-4"
