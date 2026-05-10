@@ -523,7 +523,7 @@ function favoriteList() {
   favoriteContentList.innerHTML = favContacts;
 }
 
-//^ Favorite Contact List
+//^ Emergency Contact List
 
 function emergencyList() {
   var emergencyContacts = contactsList.filter((contact) => contact.isEmergency);
