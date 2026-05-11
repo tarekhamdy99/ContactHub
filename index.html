@@ -58,6 +58,7 @@
                 class="w-100 rounded-3"
                 src="./Assets/Images/avatar-4.jpg"
                 alt="User Photo"
+                loading="lazy"
               />
             </div>
           </div>
@@ -323,6 +324,7 @@
                 alt="contactPhoto"
                 class="w-100 h-100 rounded-circle d-none shadow-sm"
                 style="object-fit: cover"
+                loading="lazy"
               />
             </div>
             <label class="custom-file-upload">
@@ -337,16 +339,13 @@
             >
             <br />
             <input
-              oninput="fullNameValidate()"
+              oninput="inputValidate(fullNameInput, Regexes.fullName)"
               id="fullName"
               type="text"
               placeholder="Enter full name"
               class="w-100 mt-1"
             />
-            <p
-              id="fullNameError"
-              class="text-danger mt-1 text-capitalize d-none"
-            >
+            <p class="text-danger mt-1 text-capitalize d-none">
               Name should contain only letters and spaces (2-50 characters)
             </p>
           </div>
@@ -356,16 +355,13 @@
             >
             <br />
             <input
-              oninput="phoneNumberValidate()"
+              oninput="inputValidate(phoneNumberInput, Regexes.phoneNumber)"
               id="phoneNumber"
               type="tel"
               placeholder="e.g., 01012345678"
               class="w-100 mt-1"
             />
-            <p
-              id="phoneNumberError"
-              class="text-danger mt-1 text-capitalize d-none"
-            >
+            <p class="text-danger mt-1 text-capitalize d-none">
               Please enter a valid Egyptian phone number
             </p>
           </div>
@@ -373,13 +369,13 @@
             <label for="emailAddress">Email</label>
             <br />
             <input
-              oninput="emailValidate()"
+              oninput="inputValidate(emailAddressInput, Regexes.email)"
               id="emailAddress"
               type="text"
               placeholder="name@example.com"
               class="w-100 mt-1"
             />
-            <p id="emailError" class="text-danger mt-1 text-capitalize d-none">
+            <p class="text-danger mt-1 text-capitalize d-none">
               Please enter a valid email address
             </p>
           </div>

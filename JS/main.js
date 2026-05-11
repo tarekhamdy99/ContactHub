@@ -27,6 +27,11 @@ var starImage = document.getElementById("starImage");
 var heartImage = document.getElementById("heartImage");
 var userIcon = document.querySelector(".userIcon i");
 var previewImg = document.querySelector(".userIcon img");
+var Regexes = {
+  fullName: /^[A-Za-z\u0600-\u06FF\s]{2,50}$/,
+  phoneNumber: /^(\+2|2)?01[0125][0-9]{8}$/,
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+};
 
 //& End Main Variabes
 
@@ -135,7 +140,7 @@ function displayAllContacts(contactSelected, search = "") {
     ) {
       imageContent = `<img src="${contactSelected[i].image}" alt="Contact Photo" class="rounded-4" />`;
     } else {
-      imageContent = `<div class="logo-name text-white fs-6 fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:60px; height:60px; background-color: var(--violet-color);">${initials}</div>`;
+      imageContent = `<div class="logo-name text-white fs-6 fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:60px; height:60px; background-color: ${getRandomColor()};">${initials}</div>`;
     }
 
     //? Include Data In HTML
@@ -500,7 +505,7 @@ function favoriteList() {
     ) {
       imageContent = `<img src="${favoriteContacts[i].image}" alt="" class="rounded-4" style="width:40px; height:40px; object-fit:cover;" />`;
     } else {
-      imageContent = `<div class="text-white small fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:40px; height:40px; background-color: var(--violet-color);">${initials}</div>`;
+      imageContent = `<div class="text-white small fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:40px; height:40px; background-color: ${getRandomColor()};">${initials}</div>`;
     }
 
     favContacts += `
@@ -557,7 +562,7 @@ function emergencyList() {
     ) {
       imageContent = `<img src="${emergencyContacts[i].image}" alt="" class="rounded-4" style="width:40px; height:40px; object-fit:cover;" />`;
     } else {
-      imageContent = `<div class="text-white small fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:40px; height:40px; background-color: var(--violet-color);">${initials}</div>`;
+      imageContent = `<div class="text-white small fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:40px; height:40px; background-color: ${getRandomColor()};">${initials}</div>`;
     }
 
     emergencyContactsContent += `
@@ -673,6 +678,19 @@ function getInitials(fullName) {
   var lastInitial = nameParts[nameParts.length - 1].charAt(0).toUpperCase();
 
   return firstInitial + lastInitial;
+}
+
+//^ Random Color Function
+
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+
+  return color;
 }
 
 //^ Show Message Function
@@ -810,59 +828,17 @@ function requireInputsValidation() {
   return true;
 }
 
-//^ Full Name Validation Function
+//^ Global Input Validation Function
 
-function fullNameValidate() {
-  var fullNameRegex = /^[A-Za-z\u0600-\u06FF\s]{2,50}$/;
-  var fullNameValue = fullNameInput.value.trim();
-  var fullNameError = document.getElementById("fullNameError");
-
-  if (fullNameRegex.test(fullNameValue)) {
-    fullNameError.classList.add("d-none");
-    fullNameInput.classList.remove("is-invalid");
+function inputValidate(input, regex) {
+  var inputValue = input.value.trim();
+  if (regex.test(inputValue)) {
+    input.nextElementSibling.classList.add("d-none");
+    input.classList.remove("is-invalid");
     return true;
   } else {
-    fullNameError.classList.remove("d-none");
-    fullNameInput.classList.remove("is-valid");
-    fullNameInput.classList.add("is-invalid");
-    return false;
-  }
-}
-
-//^ Phone Number Validation Function
-
-function phoneNumberValidate() {
-  var egyptPhoneRegex = /^(\+2|2)?01[0125][0-9]{8}$/;
-  var phoneNumberValue = phoneNumberInput.value.trim();
-  var phoneNumberError = document.getElementById("phoneNumberError");
-
-  if (egyptPhoneRegex.test(phoneNumberValue)) {
-    phoneNumberError.classList.add("d-none");
-    phoneNumberInput.classList.remove("is-invalid");
-    return true;
-  } else {
-    phoneNumberError.classList.remove("d-none");
-    phoneNumberInput.classList.remove("is-valid");
-    phoneNumberInput.classList.add("is-invalid");
-    return false;
-  }
-}
-
-//^ Email Validation Function
-
-function emailValidate() {
-  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var emailValue = emailAddressInput.value.trim();
-  var emailError = document.getElementById("emailError");
-
-  if (emailRegex.test(emailValue)) {
-    emailError.classList.add("d-none");
-    emailAddressInput.classList.remove("is-invalid");
-    return true;
-  } else {
-    emailError.classList.remove("d-none");
-    emailAddressInput.classList.remove("is-valid");
-    emailAddressInput.classList.add("is-invalid");
+    input.nextElementSibling.classList.remove("d-none");
+    input.classList.add("is-invalid");
     return false;
   }
 }
@@ -870,7 +846,7 @@ function emailValidate() {
 //^ Validation All Fields Function
 
 function validateAllFields() {
-  if (!fullNameValidate()) {
+  if (!inputValidate(fullNameInput, Regexes.fullName)) {
     showMessage({
       title: "Invalid Name",
       text: "Name should contain only letters and spaces (2-50 characters)",
@@ -880,7 +856,7 @@ function validateAllFields() {
     return false;
   }
 
-  if (!phoneNumberValidate()) {
+  if (!inputValidate(phoneNumberInput, Regexes.phoneNumber)) {
     showMessage({
       title: "Invalid Phone",
       text: "Please enter a valid Egyptian phone number (e.g., 01012345678 or +201012345678)",
@@ -890,7 +866,10 @@ function validateAllFields() {
     return false;
   }
 
-  if (emailAddressInput.value !== "" && !emailValidate()) {
+  if (
+    emailAddressInput.value !== "" &&
+    !inputValidate(emailAddressInput, Regexes.email)
+  ) {
     showMessage({
       title: "Invalid Email",
       text: "Please enter a valid email address",
@@ -906,26 +885,26 @@ function validateAllFields() {
 //^ Reset Errors Function
 
 function resetErrors() {
-  fullNameError.classList.add("d-none");
-  phoneNumberError.classList.add("d-none");
-  emailError.classList.add("d-none");
+  fullNameInput.nextElementSibling.classList.add("d-none");
+  phoneNumberInput.nextElementSibling.classList.add("d-none");
+  emailAddressInput.nextElementSibling.classList.add("d-none");
   fullNameInput.classList.remove("is-invalid");
   phoneNumberInput.classList.remove("is-invalid");
   emailAddressInput.classList.remove("is-invalid");
 }
 
-//^ Clear Validation When Clear Input Value Function
+//^ Clear Validation Function, It's Work When Clearing Input Value And Make It Empty
 
-function clearValidationOnEmpty(input, errorElement) {
+function clearValidationOnEmpty(input) {
   input.addEventListener("input", function () {
     if (input.value.trim() === "") {
       input.classList.remove("is-invalid");
-      errorElement?.classList.add("d-none");
+      input.nextElementSibling?.classList.add("d-none");
     }
   });
 }
-clearValidationOnEmpty(fullNameInput, fullNameError);
-clearValidationOnEmpty(phoneNumberInput, phoneNumberError);
-clearValidationOnEmpty(emailAddressInput, emailError);
+clearValidationOnEmpty(fullNameInput);
+clearValidationOnEmpty(phoneNumberInput);
+clearValidationOnEmpty(emailAddressInput);
 
 //& End Validation Function
