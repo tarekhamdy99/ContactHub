@@ -133,8 +133,7 @@ function displayAllContacts(contactSelected, search = "") {
 
     //? Initials Of The Name
 
-    var initials = getInitials(contactSelected[i].fullName);
-    var imageContent = createContactImage(contactSelected[i], initials);
+    var imageContent = finalImageContent(contactSelected[i]);
     //? Include Data In HTML
 
     content += `
@@ -484,8 +483,7 @@ function favoriteList() {
 
   var favContacts = "";
   for (var i = 0; i < favoriteContacts.length; i++) {
-    var initials = getInitials(favoriteContacts[i].fullName);
-    var imageContent = createContactImage(favoriteContacts[i], initials);
+    var imageContent = finalImageContent(favoriteContacts[i]);
 
     favContacts += `
       <li class="list-item d-flex justify-content-between align-items-center w-100 py-2 px-3 rounded-4 mb-3">
@@ -528,9 +526,7 @@ function emergencyList() {
 
   var emergencyContactsContent = "";
   for (var i = 0; i < emergencyContacts.length; i++) {
-    var initials = getInitials(emergencyContacts[i].fullName);
-    var imageContent = createContactImage(emergencyContacts[i], initials);
-
+    var imageContent = finalImageContent(emergencyContacts[i]);
     emergencyContactsContent += `
       <li class="list-item d-flex justify-content-between align-items-center w-100 py-2 px-3 rounded-4 mb-3">
         <div class="d-flex justify-content-start align-items-center gap-2">
@@ -675,6 +671,13 @@ function createContactImage(contact, initials) {
       ${initials}
     </div>
   `;
+}
+
+//^ Final Image Content, If Image Existed It Will Be Rendered, Else The First Letter Name Will Be Shown
+
+function finalImageContent(contactItem) {
+  var initials = getInitials(contactItem.fullName);
+  return createContactImage(contactItem, initials);
 }
 
 //^ Show Message Function

@@ -37,3 +37,28 @@
     display: none !important;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .right .head {
+    padding-inline: 5px !important ;
+  }
+  .right .head-details h4 {
+    font-size: 14px !important;
+  }
+  .right .head-details p {
+    font-size: 10px !important;
+  }
+
+  #favoriteContent,
+  #emergencyContent {
+    padding-inline: 5px !important;
+  }
+
+  .right .list-items .list-item h5,
+  .right .list-items .list-item p {
+    font-size: 12px !important;
+  }
+  .right .list-items .list-item .fa-solid.fa-phone {
+    margin-left: 5px !important;
+  }
+}
