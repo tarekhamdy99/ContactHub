@@ -56,6 +56,7 @@ function addContact() {
     notes: notesInput.value,
     isFavorite: favoriteCheckBox.checked,
     isEmergency: emergencyCheckBox.checked,
+    color: getRandomColor(),
   };
 
   //? Apply All Validation Functions
@@ -133,16 +134,7 @@ function displayAllContacts(contactSelected, search = "") {
     //? Initials Of The Name
 
     var initials = getInitials(contactSelected[i].fullName);
-    var imageContent = "";
-    if (
-      contactSelected[i].image &&
-      !contactSelected[i].image.includes("undefined")
-    ) {
-      imageContent = `<img src="${contactSelected[i].image}" alt="Contact Photo" class="rounded-4" />`;
-    } else {
-      imageContent = `<div class="logo-name text-white fs-6 fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:60px; height:60px; background-color: ${getRandomColor()};">${initials}</div>`;
-    }
-
+    var imageContent = createContactImage(contactSelected[i], initials);
     //? Include Data In HTML
 
     content += `
@@ -492,21 +484,8 @@ function favoriteList() {
 
   var favContacts = "";
   for (var i = 0; i < favoriteContacts.length; i++) {
-    var nameParts = favoriteContacts[i].fullName.trim().split(" ");
-    var initials = nameParts[0].charAt(0).toUpperCase();
-    if (nameParts.length > 1) {
-      initials += nameParts[1].charAt(0).toUpperCase();
-    }
-
-    var imageContent = "";
-    if (
-      favoriteContacts[i].image &&
-      !favoriteContacts[i].image.includes("undefined")
-    ) {
-      imageContent = `<img src="${favoriteContacts[i].image}" alt="" class="rounded-4" style="width:40px; height:40px; object-fit:cover;" />`;
-    } else {
-      imageContent = `<div class="text-white small fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:40px; height:40px; background-color: ${getRandomColor()};">${initials}</div>`;
-    }
+    var initials = getInitials(favoriteContacts[i].fullName);
+    var imageContent = createContactImage(favoriteContacts[i], initials);
 
     favContacts += `
       <li class="list-item d-flex justify-content-between align-items-center w-100 py-2 px-3 rounded-4 mb-3">
@@ -549,21 +528,8 @@ function emergencyList() {
 
   var emergencyContactsContent = "";
   for (var i = 0; i < emergencyContacts.length; i++) {
-    var nameParts = emergencyContacts[i].fullName.trim().split(" ");
-    var initials = nameParts[0].charAt(0).toUpperCase();
-    if (nameParts.length > 1) {
-      initials += nameParts[1].charAt(0).toUpperCase();
-    }
-
-    var imageContent = "";
-    if (
-      emergencyContacts[i].image &&
-      !emergencyContacts[i].image.includes("undefined")
-    ) {
-      imageContent = `<img src="${emergencyContacts[i].image}" alt="" class="rounded-4" style="width:40px; height:40px; object-fit:cover;" />`;
-    } else {
-      imageContent = `<div class="text-white small fw-bold d-flex justify-content-center align-items-center rounded-4" style="width:40px; height:40px; background-color: ${getRandomColor()};">${initials}</div>`;
-    }
+    var initials = getInitials(emergencyContacts[i].fullName);
+    var imageContent = createContactImage(emergencyContacts[i], initials);
 
     emergencyContactsContent += `
       <li class="list-item d-flex justify-content-between align-items-center w-100 py-2 px-3 rounded-4 mb-3">
@@ -691,6 +657,25 @@ function getRandomColor() {
   }
 
   return color;
+}
+
+//^ Content Of Contact Image in No Image Case
+
+function createContactImage(contact, initials) {
+  if (contact.image && !contact.image.includes("undefined")) {
+    return `
+      <img src="${contact.image}" alt="Contact Image"
+      class="rounded-4"
+      style="width:55px; height:55px; object-fit:cover;" />
+    `;
+  }
+
+  return `
+    <div class="text-white fs-5 fw-bold d-flex justify-content-center align-items-center rounded-4"
+    style="width:55px; height:55px; background-color:${contact.color};">
+      ${initials}
+    </div>
+  `;
 }
 
 //^ Show Message Function
