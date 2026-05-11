@@ -648,15 +648,14 @@ function getInitials(fullName) {
 
 //^ Random Color Function
 
+var lastHue;
 function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-
-  return color;
+  var hue;
+  do {
+    hue = Math.floor(Math.random() * 360);
+  } while (hue === lastHue);
+  lastHue = hue;
+  return `hsl(${hue}, 70%, 30%)`;
 }
 
 //^ Content Of Contact Image in No Image Case
