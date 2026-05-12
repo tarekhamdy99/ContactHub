@@ -7,7 +7,7 @@
 
 **ContactHub** is an interactive web application for managing contacts, built with pure JavaScript, HTML, and CSS. It's designed as a practical demonstration of **CRUDS** principles (Create, Read, Update, Delete, Search) featuring a modern user interface and smooth user experience.
 
-![ContactHub Screenshot](https://raw.githubusercontent.com/tarekhamdy99/ContactHub/main/Assets/Images/Screenshot.png)
+![ContactHub Screenshot](https://raw.githubusercontent.com/tarekhamdy99/ContactHub/main/Assets/Images/Screenshot_ReadMeFile.png)
 _Add a screenshot of the application here_
 
 ---
