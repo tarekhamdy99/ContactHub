@@ -53,18 +53,18 @@ Experience the application live: [ContactHub Demo](https://tarekhamdy99.github.i
 
 ## 📂 Project Structure
 
+```
 ContactHub/
 │
-├── index.html # Main HTML entry point
+├── index.html        # Main HTML entry point
 ├── Assets/
-│ └── Images/ # Image assets
+│   └── Images/       # Image assets
 ├── CSS/
-│ └── style.css # Custom stylesheet
+│   └── style.css     # Custom stylesheet
 ├── JS/
-│ └── main.js # Application logic & CRUDS implementation
-└── webfonts/ # Font Awesome web fonts
-
----
+│   └── main.js       # Application logic & CRUDS implementation
+└── webfonts/         # Font Awesome web fonts
+```
 
 ## ⚙️ CRUDS Implementation Details
 
