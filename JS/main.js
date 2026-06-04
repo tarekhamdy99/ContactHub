@@ -622,7 +622,7 @@ function highlightText(text, search) {
   var regex = new RegExp(`(${search})`, "gi");
 
   return text.replace(regex, function (match) {
-    return `<span class="bg-warning text-dark">${match}</span>`;
+    return `<span class="bg-warning text-dark fw-bolder">${match}</span>`;
   });
 }
 
